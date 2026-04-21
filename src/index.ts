@@ -69,16 +69,35 @@ function getPizzaDetail(identifier: string | number): Pizza | undefined {
     }
 }
 
-addNewPizza({ name: "Chicken Bacon Ranch", price: 12 });
-addNewPizza({ name: "BBQ Chicken", price: 12 });
-addNewPizza({ name: "Spicy Sausage", price: 12 });
+function addToArray<T>(array: T[], item: T): T[] {
+    array.push(item);
+    return array;
+}
 
-placeOrder("Chicken Bacon Ranch");
-placeOrder("Pepperoni");
-completeOrder(1);
-placeOrder("Anchovy");
-placeOrder("Veggie");
-completeOrder(2);
+addToArray<Pizza>(menu, {
+    id: NEXTPIZZAID,
+    name: "Chicken Bacon Ranch",
+    price: 12,
+});
+
+if (menu.length > 2) {
+    addToArray<Order>(orderQueue, {
+        id: NEXTORDERID,
+        pizza: menu[2]!,
+        status: "completed",
+    });
+}
+
+// addNewPizza({ name: "Chicken Bacon Ranch", price: 12 });
+// addNewPizza({ name: "BBQ Chicken", price: 12 });
+// addNewPizza({ name: "Spicy Sausage", price: 12 });
+
+// placeOrder("Chicken Bacon Ranch");
+// placeOrder("Pepperoni");
+// completeOrder(1);
+// placeOrder("Anchovy");
+// placeOrder("Veggie");
+// completeOrder(2);
 
 console.log("Menu:", menu);
 console.log("Cash in register:", cashInRegister);
